@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>login</title>
+</head>
+
+<body>
+    <div>
+        <form action="">
+        <span>账号：</span><input id="name" type="text" autocomplete="current-password" />
+        <span>密码：</span><input id="password" type="password" autocomplete="current-password" />
+        <div><button type="button" onclick="onbtnClick()">登陆</button></div>
+    </form>
+    </div>
+</body>
+<script>
+    const name = document.querySelector("#name");
+    const password = document.querySelector("#password");
+
+    const onbtnClick = () => {
+        fetch("http://localhost:3000/login", {
+            body: JSON.stringify({
+                username: name.value,
+                password: password.value,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+        })
+            .then((res) => res.json())
+            .then(res => {
+                //放入vuex redux localstore cookie等
+                localStorage.setItem("token", res.token),
+                    console.log(res.token),
+                    location.href = "./index.html"
+            }
+            );
+    };
+</script>
+
+</html>

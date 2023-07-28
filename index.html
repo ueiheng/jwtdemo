@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>index</div>
+  </body>
+  <script>
+    //获取token
+    console.log(localStorage.getItem("token"));
+    fetch("http://localhost:3000/index", {
+      headers: {
+        //w3c规范，前端发送请求要携带一个Authorization
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    })
+    //第一个res并不是返回值
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+      });
+  </script>
+</html>
